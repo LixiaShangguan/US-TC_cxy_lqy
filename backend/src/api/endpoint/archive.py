@@ -107,7 +107,7 @@ if secret.USE_ARCHIVE_API:
             'prologue',
             'day3_premeta',
             'staff',
-            'day1_intro',
+            'round1_intro',
             'day1_meta',
             'day2_intro',
             'day2_meta',

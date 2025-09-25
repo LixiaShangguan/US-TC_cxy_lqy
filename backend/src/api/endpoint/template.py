@@ -34,9 +34,9 @@ PUBLIC_TEMPLATE = ['introduction', 'faq', 'tools', 'endoftime']
 if secret.DEBUG_MODE:
     PUBLIC_TEMPLATE.append('dev_log')
 
-# ATTENTION: 目前在序章开放后就将 day1_intro 添加到了 unlock_templates 里面去
+# ATTENTION: 目前在序章开放后就将 round1_intro 添加到了 unlock_templates 里面去
 # 这里额外做一个限制
-TEMPLATE_AFTER_GAME_START = {'day1_intro'}
+TEMPLATE_AFTER_GAME_START = {'round1_intro'}
 
 
 def check_template_permission(filename: str, worker: Worker, user: User | None) -> bool:

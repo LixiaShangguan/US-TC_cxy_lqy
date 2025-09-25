@@ -29,7 +29,7 @@ class SpeedRunBoard(Board):
             self.etag_normal = utils.gen_random_str(24)
 
         # ADHOC!!
-        AREA_NAME = {'day1': '素青', 'day2': '秋蝉', 'day3': '临水'}
+        AREA_NAME = {'round1': '素青', 'round2': '秋蝉', 'round3': '临水'}
 
         def _get_by_idx(key: str, idx: int) -> dict[str, Any] | None:
             if idx + 1 > len(self.fast_teams.get(key, [])):
@@ -54,7 +54,7 @@ class SpeedRunBoard(Board):
                         for puzzle in self._game.puzzles.puzzle_by_area.get(area, [])
                     ],
                 }
-                for area in ['day1', 'day2', 'day3']  # 这里保证一下顺序
+                for area in ['round1', 'round2', 'round3']  # 这里保证一下顺序
             ]
         }
 

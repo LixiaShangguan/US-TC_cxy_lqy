@@ -29,7 +29,7 @@ class FirstBloodBoard(Board):
             self.etag_normal = utils.gen_random_str(24)
 
         # ADHOC!!
-        area_key_to_title = {'day1': '素青', 'day2': '秋蝉', 'day3': '临水'}
+        area_key_to_title = {'round1': '素青', 'round2': '秋蝉', 'round3': '临水'}
 
         return {
             'list': [
@@ -49,7 +49,7 @@ class FirstBloodBoard(Board):
                         for submission in [self.puzzle_board.get(puzzle, None)]
                     ],
                 }
-                for area in ['day1', 'day2', 'day3']  # 这里保证一下顺序
+                for area in ['round1', 'round2', 'round3']  # 这里保证一下顺序
             ]
         }
 

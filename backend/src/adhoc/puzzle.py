@@ -21,14 +21,14 @@ def gen_puzzles_by_structure(sorted_puzzles: list[Puzzle]) -> dict[str, dict[str
 def get_more_puzzle_detail(puzzle: Puzzle, user: User | None = None) -> dict[str, Any]:
     rst: dict[str, Any] = {}
     match puzzle.model.category:
-        case 'day1':
-            rst['return'] = '/area?dst=day1'
+        case 'round1':
+            rst['return'] = '/area?dst=round1'
             rst['area_name'] = '第一日'
-        case 'day2':
-            rst['return'] = '/area?dst=day2'
+        case 'round2':
+            rst['return'] = '/area?dst=round2'
             rst['area_name'] = '第二日'
-        case 'day3':
-            rst['return'] = '/area?dst=day3'
+        case 'round3':
+            rst['return'] = '/area?dst=round3'
             rst['area_name'] = '第三日'
         case _:
             rst['return'] = '/'

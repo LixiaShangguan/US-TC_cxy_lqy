@@ -21,7 +21,7 @@ def get_area_info(area: str, user: User, worker: Worker) -> dict[str, Any]:
                 'template': 'prologue',
                 'extra': EXTRA_DATA.get(area, {}),
             }
-        case 'day1' | 'day2' | 'day3':
+        case 'round1' | 'round2' | 'round3':
             return get_simple_area(area, user, worker)
         case _:
             assert False, 'never area info case!'

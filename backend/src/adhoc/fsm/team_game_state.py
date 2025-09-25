@@ -54,30 +54,30 @@ class TeamGameStatus:
         # 游戏状态
         self.finished: bool = False  # 完赛标记
         self.finished_timestamp_s: int = -1
-        self.day1_count = 0
-        self.day2_count = 0
-        self.day3_count = 0
+        self.round1_count = 0
+        self.round2_count = 0
+        self.round3_count = 0
 
         # 特殊 Puzzle 可以继承 TeamPuzzleStatus 实现，并在这里使用对应的类
         for puzzle in puzzle_list:
             self.puzzle_actions.setdefault(puzzle.model.key, [])
             match puzzle.model.key:
-                case 'day2_01':
+                case 'round2_01':
                     self.puzzle_status_by_key[puzzle.model.key] = Day201Status(self, team, puzzle)
-                case 'day2_02':
+                case 'round2_02':
                     self.puzzle_status_by_key[puzzle.model.key] = Day202Status(self, team, puzzle)
-                case 'day2_03':
+                case 'round2_03':
                     self.puzzle_status_by_key[puzzle.model.key] = Day203Status(self, team, puzzle)
-                case 'day2_06':
+                case 'round2_06':
                     self.puzzle_status_by_key[puzzle.model.key] = Day206Status(self, team, puzzle)
-                case 'day2_meta':
+                case 'round2_meta':
                     self.puzzle_status_by_key[puzzle.model.key] = Day2Meta(self, team, puzzle)
-                case _ if puzzle.model.key.startswith('day3'):
-                    if puzzle.model.key in ['day3_meta1', 'day3_meta2', 'day3_meta3']:
+                case _ if puzzle.model.key.startswith('round3'):
+                    if puzzle.model.key in ['round3_meta1', 'round3_meta2', 'round3_meta3']:
                         self.puzzle_status_by_key[puzzle.model.key] = TeamPuzzleStatus(self, team, puzzle)
-                    elif puzzle.model.key == 'day3_premeta':
+                    elif puzzle.model.key == 'round3_premeta':
                         self.puzzle_status_by_key[puzzle.model.key] = Day3PreMetaStatus(self, team, puzzle)
-                    elif puzzle.model.key == 'day3_20':
+                    elif puzzle.model.key == 'round3_20':
                         self.puzzle_status_by_key[puzzle.model.key] = Day320Status(self, team, puzzle)
                     else:
                         self.puzzle_status_by_key[puzzle.model.key] = Day3Normal(self, team, puzzle)
@@ -99,55 +99,55 @@ class TeamGameStatus:
                 self.passed_puzzles.add((submission.puzzle, submission))
                 self.success_submissions.append(submission)
 
-                if puzzle_key.startswith('day1'):
-                    if puzzle_key == 'day1_meta':
-                        self.unlock_areas.add('day2')
-                        self.unlock_templates.add('day1_meta')
-                        self.unlock_templates.add('day2_intro')
-                        self.add_unlock_puzzle('day2_01', int(submission.store.created_at / 1000), is_reloading)
-                        self.add_unlock_puzzle('day2_02', int(submission.store.created_at / 1000), is_reloading)
-                        self.add_unlock_puzzle('day2_03', int(submission.store.created_at / 1000), is_reloading)
-                        self.add_unlock_puzzle('day2_04', int(submission.store.created_at / 1000), is_reloading)
-                        self.add_unlock_puzzle('day2_05', int(submission.store.created_at / 1000), is_reloading)
-                        self.add_unlock_puzzle('day2_06', int(submission.store.created_at / 1000), is_reloading)
+                if puzzle_key.startswith('round1'):
+                    if puzzle_key == 'round1_meta':
+                        self.unlock_areas.add('round2')
+                        self.unlock_templates.add('round1_meta')
+                        self.unlock_templates.add('round2_intro')
+                        self.add_unlock_puzzle('round2_01', int(submission.store.created_at / 1000), is_reloading)
+                        self.add_unlock_puzzle('round2_02', int(submission.store.created_at / 1000), is_reloading)
+                        self.add_unlock_puzzle('round2_03', int(submission.store.created_at / 1000), is_reloading)
+                        self.add_unlock_puzzle('round2_04', int(submission.store.created_at / 1000), is_reloading)
+                        self.add_unlock_puzzle('round2_05', int(submission.store.created_at / 1000), is_reloading)
+                        self.add_unlock_puzzle('round2_06', int(submission.store.created_at / 1000), is_reloading)
                     else:
-                        self.day1_count += 1
+                        self.round1_count += 1
                         # 做出一道解锁一道，做出 5 道时应当解锁完毕
-                        if self.day1_count <= 5:
+                        if self.round1_count <= 5:
                             self.add_unlock_puzzle(
-                                f'day1_{3 + self.day1_count:0>2}', int(submission.store.created_at / 1000), is_reloading
+                                f'round1_{3 + self.round1_count:0>2}', int(submission.store.created_at / 1000), is_reloading
                             )
                         # 做出 7 题时开放 meta
-                        if self.day1_count == 7:
-                            self.add_unlock_puzzle('day1_meta', int(submission.store.created_at / 1000), is_reloading)
+                        if self.round1_count == 7:
+                            self.add_unlock_puzzle('round1_meta', int(submission.store.created_at / 1000), is_reloading)
 
-                elif puzzle_key.startswith('day2'):
-                    if puzzle_key == 'day2_meta':
-                        self.unlock_areas.add('day3')
-                        self.unlock_templates.add('day2_meta')
-                        self.unlock_templates.add('day3_intro')
-                        self.add_unlock_puzzle('day3_01', int(submission.store.created_at / 1000), is_reloading)
-                        self.add_unlock_puzzle('day3_02', int(submission.store.created_at / 1000), is_reloading)
-                        self.add_unlock_puzzle('day3_03', int(submission.store.created_at / 1000), is_reloading)
+                elif puzzle_key.startswith('round2'):
+                    if puzzle_key == 'round2_meta':
+                        self.unlock_areas.add('round3')
+                        self.unlock_templates.add('round2_meta')
+                        self.unlock_templates.add('round3_intro')
+                        self.add_unlock_puzzle('round3_01', int(submission.store.created_at / 1000), is_reloading)
+                        self.add_unlock_puzzle('round3_02', int(submission.store.created_at / 1000), is_reloading)
+                        self.add_unlock_puzzle('round3_03', int(submission.store.created_at / 1000), is_reloading)
                     else:
-                        self.day2_count += 1
-                        # if self.day2_count <= 3:
+                        self.round2_count += 1
+                        # if self.round2_count <= 3:
                         #     self.add_unlock_puzzle(
-                        #         f"day2_{3 + self.day2_count:0>2}",
+                        #         f"round2_{3 + self.round2_count:0>2}",
                         #         int(submission.store.created_at / 1000), is_reloading
                         #     )
                         # 六道题全都做出的时候开放 meta
-                        if self.day2_count == 4:
-                            self.add_unlock_puzzle('day2_meta', int(submission.store.created_at / 1000), is_reloading)
+                        if self.round2_count == 4:
+                            self.add_unlock_puzzle('round2_meta', int(submission.store.created_at / 1000), is_reloading)
 
-                elif puzzle_key.startswith('day3'):
-                    if puzzle_key in ['day3_meta1', 'day3_meta2', 'day3_meta3']:
+                elif puzzle_key.startswith('round3'):
+                    if puzzle_key in ['round3_meta1', 'round3_meta2', 'round3_meta3']:
                         # 这里名字刚好一样
                         self.unlock_templates.add(puzzle_key)
                         if (
-                            'day3_meta1' in self.passed_puzzle_keys
-                            and 'day3_meta2' in self.passed_puzzle_keys
-                            and 'day3_meta3' in self.passed_puzzle_keys
+                            'round3_meta1' in self.passed_puzzle_keys
+                            and 'round3_meta2' in self.passed_puzzle_keys
+                            and 'round3_meta3' in self.passed_puzzle_keys
                         ):
                             self.finished = True
                             self.finished_timestamp_s = int(submission.store.created_at / 1000)
@@ -164,40 +164,40 @@ class TeamGameStatus:
                                     }
                                 )
                     else:
-                        self.day3_count += 1
-                        if self.day3_count < 4:
+                        self.round3_count += 1
+                        if self.round3_count < 4:
                             self.add_unlock_puzzle(
-                                f'day3_{3 + self.day3_count:0>2}', int(submission.store.created_at / 1000), is_reloading
+                                f'round3_{3 + self.round3_count:0>2}', int(submission.store.created_at / 1000), is_reloading
                             )
-                        elif self.day3_count == 4:
-                            self.add_unlock_puzzle('day3_07', int(submission.store.created_at / 1000), is_reloading)
-                            self.add_unlock_puzzle('day3_08', int(submission.store.created_at / 1000), is_reloading)
-                        elif self.day3_count < 7:
+                        elif self.round3_count == 4:
+                            self.add_unlock_puzzle('round3_07', int(submission.store.created_at / 1000), is_reloading)
+                            self.add_unlock_puzzle('round3_08', int(submission.store.created_at / 1000), is_reloading)
+                        elif self.round3_count < 7:
                             self.add_unlock_puzzle(
-                                f'day3_{4 + self.day3_count:0>2}', int(submission.store.created_at / 1000), is_reloading
+                                f'round3_{4 + self.round3_count:0>2}', int(submission.store.created_at / 1000), is_reloading
                             )
-                        elif self.day3_count == 7:
-                            self.add_unlock_puzzle('day3_11', int(submission.store.created_at / 1000), is_reloading)
-                            self.add_unlock_puzzle('day3_12', int(submission.store.created_at / 1000), is_reloading)
-                        elif self.day3_count < 12:
+                        elif self.round3_count == 7:
+                            self.add_unlock_puzzle('round3_11', int(submission.store.created_at / 1000), is_reloading)
+                            self.add_unlock_puzzle('round3_12', int(submission.store.created_at / 1000), is_reloading)
+                        elif self.round3_count < 12:
                             self.add_unlock_puzzle(
-                                f'day3_{5 + self.day3_count:0>2}', int(submission.store.created_at / 1000), is_reloading
+                                f'round3_{5 + self.round3_count:0>2}', int(submission.store.created_at / 1000), is_reloading
                             )
-                        elif self.day3_count == 12:
-                            self.add_unlock_puzzle('day3_17', int(submission.store.created_at / 1000), is_reloading)
-                            self.add_unlock_puzzle('day3_18', int(submission.store.created_at / 1000), is_reloading)
-                        elif self.day3_count < 17:
+                        elif self.round3_count == 12:
+                            self.add_unlock_puzzle('round3_17', int(submission.store.created_at / 1000), is_reloading)
+                            self.add_unlock_puzzle('round3_18', int(submission.store.created_at / 1000), is_reloading)
+                        elif self.round3_count < 17:
                             self.add_unlock_puzzle(
-                                f'day3_{6 + self.day3_count:0>2}', int(submission.store.created_at / 1000), is_reloading
+                                f'round3_{6 + self.round3_count:0>2}', int(submission.store.created_at / 1000), is_reloading
                             )
-                        elif self.day3_count == 17:
+                        elif self.round3_count == 17:
                             self.add_unlock_puzzle(
-                                'day3_premeta', int(submission.store.created_at / 1000), is_reloading
+                                'round3_premeta', int(submission.store.created_at / 1000), is_reloading
                             )
-                            self.add_unlock_puzzle('day3_meta1', int(submission.store.created_at / 1000), is_reloading)
-                            self.add_unlock_puzzle('day3_meta2', int(submission.store.created_at / 1000), is_reloading)
-                            self.add_unlock_puzzle('day3_meta3', int(submission.store.created_at / 1000), is_reloading)
-                            self.unlock_templates.add('day3_premeta')
+                            self.add_unlock_puzzle('round3_meta1', int(submission.store.created_at / 1000), is_reloading)
+                            self.add_unlock_puzzle('round3_meta2', int(submission.store.created_at / 1000), is_reloading)
+                            self.add_unlock_puzzle('round3_meta3', int(submission.store.created_at / 1000), is_reloading)
+                            self.unlock_templates.add('round3_premeta')
                 else:
                     assert False
 
@@ -211,13 +211,13 @@ class TeamGameStatus:
         """
         submission_result = self.puzzle_status_by_key[puzzle_key].test_submission(submission)
         if submission_result.type == 'pass':
-            if puzzle_key.startswith('day1') and puzzle_key != 'day1_meta' and 'day1_meta' in self.passed_puzzle_keys:
+            if puzzle_key.startswith('round1') and puzzle_key != 'round1_meta' and 'round1_meta' in self.passed_puzzle_keys:
                 submission_result.pass_after_meta = True
-            if puzzle_key.startswith('day2') and puzzle_key != 'day2_meta' and 'day2_meta' in self.passed_puzzle_keys:
+            if puzzle_key.startswith('round2') and puzzle_key != 'round2_meta' and 'round2_meta' in self.passed_puzzle_keys:
                 submission_result.pass_after_meta = True
             if (
-                puzzle_key.startswith('day3')
-                and puzzle_key not in ['day3_meta1', 'day3_meta2', 'day3_meta3']
+                puzzle_key.startswith('round3')
+                and puzzle_key not in ['round3_meta1', 'round3_meta2', 'round3_meta3']
                 and self.finished
             ):
                 submission_result.pass_after_meta = True
@@ -248,7 +248,7 @@ class TeamGameStatus:
         self.puzzle_status_by_key[puzzle_key].visible = 'unlock'
 
         if not is_reloading:
-            if puzzle_key == 'day1_meta':
+            if puzzle_key == 'round1_meta':
                 self.team.game.worker.emit_ws_message(
                     {
                         'type': 'normal',
@@ -260,7 +260,7 @@ class TeamGameStatus:
                         },
                     }
                 )
-            if puzzle_key == 'day2_meta':
+            if puzzle_key == 'round2_meta':
                 self.team.game.worker.emit_ws_message(
                     {
                         'type': 'normal',
@@ -272,7 +272,7 @@ class TeamGameStatus:
                         },
                     }
                 )
-            if puzzle_key == 'day3_premeta':
+            if puzzle_key == 'round3_premeta':
                 self.team.game.worker.emit_ws_message(
                     {
                         'type': 'normal',
@@ -292,11 +292,11 @@ class TeamGameStatus:
 
         self.unlock_boards.append('score_board')
         self.unlock_templates.add('prologue')
-        self.unlock_templates.add('day1_intro')
-        self.unlock_areas.add('day1')
-        self.add_unlock_puzzle('day1_01', team_game_start_time, is_reloading)
-        self.add_unlock_puzzle('day1_02', team_game_start_time, is_reloading)
-        self.add_unlock_puzzle('day1_03', team_game_start_time, is_reloading)
+        self.unlock_templates.add('round1_intro')
+        self.unlock_areas.add('round1')
+        self.add_unlock_puzzle('round1_01', team_game_start_time, is_reloading)
+        self.add_unlock_puzzle('round1_02', team_game_start_time, is_reloading)
+        self.add_unlock_puzzle('round1_03', team_game_start_time, is_reloading)
 
     def on_puzzle_action(self, event: PuzzleActionEvent) -> None:
         if event.puzzle_key in self.puzzle_status_by_key:

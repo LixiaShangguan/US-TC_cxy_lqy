@@ -12,7 +12,7 @@ EXTRA_DATA = {
         'subColor': 'hsl(321.82, 73.33%, 94.12%)',
         'mainColor': 'hsl(220.85, 85.45%, 67.65%)',
     },
-    'day1': {
+    'round1': {
         'areaImage': utils.media_wrapper('areas/day1/day1.webp'),
         'areaLogoImage': utils.media_wrapper('areas/day1/logo_day1.svg'),
         'areaTitle': '素青',
@@ -22,7 +22,7 @@ EXTRA_DATA = {
         'subColor': 'hsl(321.82, 73.33%, 94.12%)',
         'mainColor': 'hsl(220.85, 85.45%, 67.65%)',
     },
-    'day2': {
+    'round2': {
         'areaImage': utils.media_wrapper('areas/day2/day2.webp'),
         'areaLogoImage': utils.media_wrapper('areas/day2/logo_day2.svg'),
         'areaTitle': '秋蝉',
@@ -32,7 +32,7 @@ EXTRA_DATA = {
         'subColor': 'hsl(57.69, 72.22%, 71.76%)',
         'mainColor': 'hsl(176.3, 91.5%, 41.4%)',
     },
-    'day3': {
+    'round3': {
         'areaImage': utils.media_wrapper('areas/day3/day3.webp'),
         'areaLogoImage': utils.media_wrapper('areas/day3/logo_day3.svg'),
         'areaTitle': '临水',
@@ -92,7 +92,7 @@ AREA_LIST = [
         'title': '第一日',
         'subtitle': '执意以火\n将画吻遍',
         'buttonText': '前往探索',
-        'buttonLink': '/area?dst=day1',
+        'buttonLink': '/area?dst=round1',
         'align': 'right',
         'bottomPercentage': 17,
         'rightPercentage': 10,
@@ -106,7 +106,7 @@ AREA_LIST = [
         'title': '第二日',
         'subtitle': '重新许下\n生的祈愿',
         'buttonText': '前往探索',
-        'buttonLink': '/area?dst=day2',
+        'buttonLink': '/area?dst=round2',
         'align': 'right',
         'bottomPercentage': 17,
         'rightPercentage': 10,
@@ -120,7 +120,7 @@ AREA_LIST = [
         'title': '第三日',
         'subtitle': '对平地\n绽出的水面',
         'buttonText': '前往探索',
-        'buttonLink': '/area?dst=day3',
+        'buttonLink': '/area?dst=round3',
         'align': 'right',
         'bottomPercentage': 17,
         'rightPercentage': 10,

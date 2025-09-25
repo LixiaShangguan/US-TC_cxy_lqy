@@ -498,7 +498,7 @@ async def get_puzzle_statistics(req: Request, worker: Worker, user: User | None)
         return {'status': 'error', 'title': 'NOT_IMPLEMENT', 'message': 'staff 暂时无法调用这个接口'}
     assert user.team is not None
 
-    area_list = ['day1', 'day2', 'day3']
+    area_list = ['round1', 'round2', 'round3']
 
     res = []
     for area_name in area_list:

@@ -17,7 +17,7 @@ STORY_LIST = [
     {
         'subtitle': '第一日',
         'list': [
-            {'title': '与素青的初见', 'template': 'day1_intro'},
+            {'title': '与素青的初见', 'template': 'round1_intro'},
             {'title': '囚禁于沉睡遗迹', 'template': 'day1_meta'},
         ],
     },
