@@ -99,7 +99,7 @@ pymysql==1.1.2
     # via backend
 pytz==2025.2
     # via backend
-pyyaml==6.0.2
+pyyaml==6.0.3
     # via sanic-ext
 pyzmq==27.1.0
     # via backend
