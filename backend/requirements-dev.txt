@@ -171,5 +171,5 @@ wtforms==3.2.1
     # via flask-admin
 zope-event==6.0
     # via gevent
-zope-interface==8.0
+zope-interface==8.0.1
     # via gevent
